@@ -1,14 +1,15 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import sequelize from '../config/database';
+import { v4 as uuidv4 } from 'uuid'; 
 
 interface InvoiceAttributes {
-  id: number;
+  id?: string ;
   totalInvoiceValue: number;
-  sowId: number;
+  sowId: string;
   status: string;
-  sowPaymentPlanId: number;
+  sowPaymentPlanId: string;
   invoiceSentOn?: Date | null;
-  customerId: number;
+  customerId: string;
   paymentReceivedOn?: Date | null;
   invoiceVersionNumber: number;
   invoiceAmount: number;
@@ -18,13 +19,13 @@ interface InvoiceAttributes {
 interface InvoiceCreationAttributes extends Optional<InvoiceAttributes, 'id'> {}
 
 class Invoice extends Model<InvoiceAttributes, InvoiceCreationAttributes> implements InvoiceAttributes {
-  public id!: number;
+  public id!: string;
   public totalInvoiceValue!: number;
-  public sowId!: number;
+  public sowId!: string;
   public status!: string;
-  public sowPaymentPlanId!: number;
+  public sowPaymentPlanId!: string;
   public invoiceSentOn!: Date | null;
-  public customerId!: number;
+  public customerId!: string;
   public paymentReceivedOn!: Date | null;
   public invoiceVersionNumber!: number;
   public invoiceAmount!: number;
@@ -34,16 +35,16 @@ class Invoice extends Model<InvoiceAttributes, InvoiceCreationAttributes> implem
 Invoice.init(
   {
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     totalInvoiceValue: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     sowId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
     },
     status: {
@@ -51,7 +52,7 @@ Invoice.init(
       allowNull: false,
     },
     sowPaymentPlanId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
     },
     invoiceSentOn: {
@@ -59,7 +60,7 @@ Invoice.init(
       allowNull: true,
     },
     customerId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
     },
     paymentReceivedOn: {
@@ -71,11 +72,11 @@ Invoice.init(
       allowNull: false,
     },
     invoiceAmount: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     invoiceTaxAmount: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   },

@@ -1,106 +1,110 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import sequelize from '../config/database';
 
-interface CustomerAttributes {
-  id: number;
-  organizationId: number;
-  msaValidFrom: Date;
-  msaValidUpto: Date;
-  legalName: string;
-  ndaSignedOn: Date;
-  shortName: string;
-  ndaValidUpto: Date;
-  addressId: number;
-  ndaValidFrom: Date;
-  displayName: string;
-  isNDASigned: boolean;
-  isMSASigned: boolean;
-  msaSignedOn: Date;
+
+interface ClientAttributes {
+  id: string;
+  orgId: string;
+  MSAValidFrom: Date;
+  MSAValidUpto: Date;
+  LegalName: string;
+  NDASignedOn: Date;
+  ShortName: string;
+  NDAValidFrom: Date;
+  NDAValidUpto: Date;
+  AddressId: string;
+  DisplayName: string;
+  IsNDASigned: boolean;
+  IsMSASigned: boolean;
+  MSASignedOn: Date;
 }
 
-interface CustomerCreationAttributes extends Optional<CustomerAttributes, 'id'> {}
+// attributes required for creating a Client
+interface ClientCreationAttributes extends Optional<ClientAttributes, 'id'> {}
 
-class Customer extends Model<CustomerAttributes, CustomerCreationAttributes> implements CustomerAttributes {
-  public id!: number;
-  public organizationId!: number;
-  public msaValidFrom!: Date;
-  public msaValidUpto!: Date;
-  public legalName!: string;
-  public ndaSignedOn!: Date;
-  public shortName!: string;
-  public ndaValidUpto!: Date;
-  public addressId!: number;
-  public ndaValidFrom!: Date;
-  public displayName!: string;
-  public isNDASigned!: boolean;
-  public isMSASigned!: boolean;
-  public msaSignedOn!: Date;
-}
+class Client extends Model<ClientAttributes, ClientCreationAttributes> implements ClientAttributes {
+  public id!: string;
+  public orgId!: string;
+  public MSAValidFrom!: Date;
+  public MSAValidUpto!: Date;
+  public LegalName!: string;
+  public NDASignedOn!: Date;
+  public ShortName!: string;
+  public NDAValidFrom!: Date;
+  public NDAValidUpto!: Date;
+  public AddressId!: string;
+  public DisplayName!: string;
+  public IsNDASigned!: boolean;
+  public IsMSASigned!: boolean;
+  public MSASignedOn!: Date;
 
-Customer.init(
+ }
+
+
+Client.init(
   {
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-    organizationId: {
-      type: DataTypes.INTEGER,
+    orgId: {
+      type: DataTypes.UUID,
       allowNull: false,
     },
-    msaValidFrom: {
+    MSAValidFrom: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    msaValidUpto: {
+    MSAValidUpto: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    legalName: {
+    LegalName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    ndaSignedOn: {
+    NDASignedOn: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    shortName: {
+    ShortName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    ndaValidUpto: {
+    NDAValidFrom: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    addressId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    ndaValidFrom: {
+    NDAValidUpto: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    displayName: {
+    AddressId: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    isNDASigned: {
+    DisplayName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    IsNDASigned: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
-    isMSASigned: {
+    IsMSASigned: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
-    msaSignedOn: {
+    MSASignedOn: {
       type: DataTypes.DATE,
       allowNull: false,
     },
   },
   {
     sequelize,
-    tableName: 'customers',
+    tableName: 'clients', 
   }
 );
 
-export default Customer;
+export default Client;

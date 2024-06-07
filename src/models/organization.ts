@@ -1,41 +1,42 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import sequelize from '../config/database';
+import { v4 as uuidv4 } from 'uuid'; 
 
 interface OrganizationAttributes {
-  id: number;
+  id?: string;
   gstNo: string;
   panNo: string;
-  legalName: string;
+  legalOrganizationName: string;
   invoiceTemplateId: string;
   shortName: string;
   contactName: string;
   displayName: string;
   email: string;
-  addressId: number;
+  addressId: string;
   phone: string;
 }
 
 interface OrganizationCreationAttributes extends Optional<OrganizationAttributes, 'id'> {}
 
 class Organization extends Model<OrganizationAttributes, OrganizationCreationAttributes> implements OrganizationAttributes {
-  public id!: number;
+  public id!: string;
   public gstNo!: string;
   public panNo!: string;
-  public legalName!: string;
+  public legalOrganizationName!: string;
   public invoiceTemplateId!: string;
   public shortName!: string;
   public contactName!: string;
   public displayName!: string;
   public email!: string;
-  public addressId!: number;
+  public addressId!: string;
   public phone!: string;
 }
 
 Organization.init(
   {
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     gstNo: {
@@ -46,7 +47,7 @@ Organization.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    legalName: {
+    legalOrganizationName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -71,7 +72,7 @@ Organization.init(
       allowNull: false,
     },
     addressId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     phone: {

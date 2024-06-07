@@ -9,8 +9,8 @@ class Payment extends sequelize_1.Model {
 }
 Payment.init({
     id: {
-        type: sequelize_1.DataTypes.INTEGER,
-        autoIncrement: true,
+        type: sequelize_1.DataTypes.UUID,
+        defaultValue: sequelize_1.DataTypes.UUIDV4,
         primaryKey: true,
     },
     paymentDate: {
@@ -30,7 +30,7 @@ Payment.init({
         allowNull: false,
     },
     invoiceId: {
-        type: sequelize_1.DataTypes.INTEGER,
+        type: sequelize_1.DataTypes.UUID,
         allowNull: false,
     },
     isFullPayment: {

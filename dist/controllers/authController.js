@@ -48,15 +48,12 @@ const invite = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!email || !role) {
             return res.status(400).json({ error: 'Email and role are required' });
         }
-        // Check if the user already exists
         const existingUser = yield models_1.default.User.findOne({ where: { email } });
         if (existingUser) {
             return res.status(400).json({ error: 'User already exists' });
         }
-        // Create the user with a temporary password
         const temporaryPassword = 'temporaryPassword';
         const user = yield models_1.default.User.create({ email, password: temporaryPassword, role });
-        // Here you would normally send an email to the user with the invitation link
         res.status(201).json(user);
     }
     catch (error) {

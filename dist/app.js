@@ -6,8 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const models_1 = __importDefault(require("./models"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const auth_1 = __importDefault(require("./routes/auth"));
-const authMiddleware_1 = require("./middleware/authMiddleware");
+// import { authenticate, authorize } from './middleware/authMiddleware';
 const index_1 = __importDefault(require("./routes/organization/index"));
 const index_2 = __importDefault(require("./routes/customer/index"));
 const sow_1 = __importDefault(require("./routes/sow"));
@@ -23,16 +22,15 @@ app.use(express_1.default.json());
 app.get('/', (req, res) => {
     res.send('Invoice Management System API');
 });
-app.use('/auth', auth_1.default);
-// Protect the following routes
-app.use('/organizations', authMiddleware_1.authenticate, (0, authMiddleware_1.authorize)(['admin', 'user']), index_1.default);
-app.use('/customers', authMiddleware_1.authenticate, (0, authMiddleware_1.authorize)(['admin', 'user']), index_2.default);
-app.use('/sows', authMiddleware_1.authenticate, (0, authMiddleware_1.authorize)(['admin', 'user']), sow_1.default);
-app.use('/sowPaymentPlans', authMiddleware_1.authenticate, (0, authMiddleware_1.authorize)(['admin', 'user']), sowPaymentPlan_1.default);
-app.use('/sowPaymentPlanLineItems', authMiddleware_1.authenticate, (0, authMiddleware_1.authorize)(['admin', 'user']), sowPaymentPlanLineItem_1.default);
-app.use('/invoices', authMiddleware_1.authenticate, (0, authMiddleware_1.authorize)(['admin', 'user']), invoice_1.default);
-app.use('/invoiceLineItems', authMiddleware_1.authenticate, (0, authMiddleware_1.authorize)(['admin', 'user']), invoiceLineItem_1.default);
-app.use('/payments', authMiddleware_1.authenticate, (0, authMiddleware_1.authorize)(['admin', 'user']), payment_1.default);
+// app.use('/auth', authRoutes);
+app.use('/organizations', index_1.default);
+app.use('/customers', index_2.default);
+app.use('/sows', sow_1.default);
+app.use('/sowPaymentPlans', sowPaymentPlan_1.default);
+app.use('/sowPaymentPlanLineItems', sowPaymentPlanLineItem_1.default);
+app.use('/invoices', invoice_1.default);
+app.use('/invoiceLineItems', invoiceLineItem_1.default);
+app.use('/payments', payment_1.default);
 models_1.default.sequelize.sync().then(() => {
     app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);

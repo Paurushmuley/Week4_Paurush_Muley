@@ -36,17 +36,17 @@ export const invite = async (req: Request, res: Response) => {
         return res.status(400).json({ error: 'Email and role are required' });
       }
   
-      // Check if the user already exists
+
       const existingUser = await db.User.findOne({ where: { email } });
       if (existingUser) {
         return res.status(400).json({ error: 'User already exists' });
       }
   
-      // Create the user with a temporary password
+  
       const temporaryPassword = 'temporaryPassword';
       const user = await db.User.create({ email, password: temporaryPassword, role });
   
-      // Here you would normally send an email to the user with the invitation link
+      
   
       res.status(201).json(user);
     } catch (error) {

@@ -3,8 +3,8 @@ import db from '../models';
 
 export const createSOWPaymentPlanLineItem = async (req: Request, res: Response) => {
   try {
-    const sowPaymentPlanLineItem = await db.SOWPaymentPlanLineItem.create(req.body);
-    res.status(201).json(sowPaymentPlanLineItem);
+    const sowPaymentPlanLineItem = await db.SOWPaymentPlanLineItem.bulkCreate(req.body);
+    res.status(201).json(sowPaymentPlanLineItem)
   } catch (error) {
     res.status(500).json({ error: error});
   }

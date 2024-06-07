@@ -9,16 +9,16 @@ class SOWPaymentPlan extends sequelize_1.Model {
 }
 SOWPaymentPlan.init({
     id: {
-        type: sequelize_1.DataTypes.INTEGER,
-        autoIncrement: true,
+        type: sequelize_1.DataTypes.UUID,
+        defaultValue: sequelize_1.DataTypes.UUIDV4,
         primaryKey: true,
     },
     sowId: {
-        type: sequelize_1.DataTypes.INTEGER,
+        type: sequelize_1.DataTypes.UUID,
         allowNull: false,
     },
     customerId: {
-        type: sequelize_1.DataTypes.INTEGER,
+        type: sequelize_1.DataTypes.UUID,
         allowNull: false,
     },
     plannedInvoiceDate: {

@@ -9,8 +9,8 @@ class Organization extends sequelize_1.Model {
 }
 Organization.init({
     id: {
-        type: sequelize_1.DataTypes.INTEGER,
-        autoIncrement: true,
+        type: sequelize_1.DataTypes.UUID,
+        defaultValue: sequelize_1.DataTypes.UUIDV4,
         primaryKey: true,
     },
     gstNo: {
@@ -21,7 +21,7 @@ Organization.init({
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
     },
-    legalName: {
+    legalOrganizationName: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
     },
@@ -46,7 +46,7 @@ Organization.init({
         allowNull: false,
     },
     addressId: {
-        type: sequelize_1.DataTypes.INTEGER,
+        type: sequelize_1.DataTypes.STRING,
         allowNull: false,
     },
     phone: {

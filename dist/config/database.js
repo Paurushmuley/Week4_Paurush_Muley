@@ -12,7 +12,6 @@ const sequelize = new sequelize_1.Sequelize({
     database: credentials_1.default.postgres.DATABASE,
     password: credentials_1.default.postgres.PASSWORD,
     port: credentials_1.default.postgres.DBPORT,
-    //dialect 
     dialect: "postgres",
 });
 sequelize.authenticate()

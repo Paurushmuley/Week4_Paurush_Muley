@@ -9,16 +9,16 @@ class SOW extends sequelize_1.Model {
 }
 SOW.init({
     id: {
-        type: sequelize_1.DataTypes.INTEGER,
-        autoIncrement: true,
+        type: sequelize_1.DataTypes.UUID,
+        defaultValue: sequelize_1.DataTypes.UUIDV4,
         primaryKey: true,
     },
     invoiceEmailAddresses: {
-        type: sequelize_1.DataTypes.STRING,
+        type: sequelize_1.DataTypes.ARRAY(sequelize_1.DataTypes.STRING),
         allowNull: false,
     },
     customerId: {
-        type: sequelize_1.DataTypes.INTEGER,
+        type: sequelize_1.DataTypes.UUID,
         allowNull: false,
     },
     customerPONumber: {
@@ -34,7 +34,7 @@ SOW.init({
         allowNull: false,
     },
     validityPeriod: {
-        type: sequelize_1.DataTypes.STRING,
+        type: sequelize_1.DataTypes.JSONB,
         allowNull: false,
     },
     totalValue: {
@@ -44,10 +44,6 @@ SOW.init({
     currency: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
-    },
-    isApproved: {
-        type: sequelize_1.DataTypes.BOOLEAN,
-        defaultValue: false,
     },
 }, {
     sequelize: database_1.default,

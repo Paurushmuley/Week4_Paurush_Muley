@@ -1,13 +1,14 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import sequelize from '../config/database';
+import { v4 as uuidv4 } from 'uuid';
 
 interface PaymentAttributes {
-  id: number;
+  id?: string ;
   paymentDate: Date;
   forExAmount: number;
   currency: string;
   indianAmount: number;
-  invoiceId: number;
+  invoiceId: string;
   isFullPayment: boolean;
   bankPayment: boolean;
   details: string;
@@ -16,12 +17,12 @@ interface PaymentAttributes {
 interface PaymentCreationAttributes extends Optional<PaymentAttributes, 'id'> {}
 
 class Payment extends Model<PaymentAttributes, PaymentCreationAttributes> implements PaymentAttributes {
-  public id!: number;
+  public id!: string;
   public paymentDate!: Date;
   public forExAmount!: number;
   public currency!: string;
   public indianAmount!: number;
-  public invoiceId!: number;
+  public invoiceId!: string;
   public isFullPayment!: boolean;
   public bankPayment!: boolean;
   public details!: string;
@@ -30,8 +31,8 @@ class Payment extends Model<PaymentAttributes, PaymentCreationAttributes> implem
 Payment.init(
   {
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     paymentDate: {
@@ -51,7 +52,7 @@ Payment.init(
       allowNull: false,
     },
     invoiceId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
     },
     isFullPayment: {

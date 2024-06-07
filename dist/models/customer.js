@@ -5,69 +5,69 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const database_1 = __importDefault(require("../config/database"));
-class Customer extends sequelize_1.Model {
+class Client extends sequelize_1.Model {
 }
-Customer.init({
+Client.init({
     id: {
-        type: sequelize_1.DataTypes.INTEGER,
-        autoIncrement: true,
+        type: sequelize_1.DataTypes.UUID,
+        defaultValue: sequelize_1.DataTypes.UUIDV4,
         primaryKey: true,
     },
-    organizationId: {
-        type: sequelize_1.DataTypes.INTEGER,
+    orgId: {
+        type: sequelize_1.DataTypes.UUID,
         allowNull: false,
     },
-    msaValidFrom: {
+    MSAValidFrom: {
         type: sequelize_1.DataTypes.DATE,
         allowNull: false,
     },
-    msaValidUpto: {
+    MSAValidUpto: {
         type: sequelize_1.DataTypes.DATE,
         allowNull: false,
     },
-    legalName: {
+    LegalName: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
     },
-    ndaSignedOn: {
+    NDASignedOn: {
         type: sequelize_1.DataTypes.DATE,
         allowNull: false,
     },
-    shortName: {
+    ShortName: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
     },
-    ndaValidUpto: {
+    NDAValidFrom: {
         type: sequelize_1.DataTypes.DATE,
         allowNull: false,
     },
-    addressId: {
-        type: sequelize_1.DataTypes.INTEGER,
-        allowNull: false,
-    },
-    ndaValidFrom: {
+    NDAValidUpto: {
         type: sequelize_1.DataTypes.DATE,
         allowNull: false,
     },
-    displayName: {
+    AddressId: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
     },
-    isNDASigned: {
+    DisplayName: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: false,
+    },
+    IsNDASigned: {
         type: sequelize_1.DataTypes.BOOLEAN,
         allowNull: false,
     },
-    isMSASigned: {
+    IsMSASigned: {
         type: sequelize_1.DataTypes.BOOLEAN,
         allowNull: false,
     },
-    msaSignedOn: {
+    MSASignedOn: {
         type: sequelize_1.DataTypes.DATE,
         allowNull: false,
     },
 }, {
     sequelize: database_1.default,
-    tableName: 'customers',
+    tableName: 'clients',
 });
-exports.default = Customer;
+exports.default = Client;
 //# sourceMappingURL=customer.js.map

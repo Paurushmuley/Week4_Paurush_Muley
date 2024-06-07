@@ -16,7 +16,7 @@ exports.deleteSOWPaymentPlanLineItem = exports.updateSOWPaymentPlanLineItem = ex
 const models_1 = __importDefault(require("../models"));
 const createSOWPaymentPlanLineItem = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const sowPaymentPlanLineItem = yield models_1.default.SOWPaymentPlanLineItem.create(req.body);
+        const sowPaymentPlanLineItem = yield models_1.default.SOWPaymentPlanLineItem.bulkCreate(req.body);
         res.status(201).json(sowPaymentPlanLineItem);
     }
     catch (error) {

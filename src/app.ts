@@ -2,7 +2,7 @@ import express from 'express';
 import db from './models';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth';
-import { authenticate, authorize } from './middleware/authMiddleware';
+// import { authenticate, authorize } from './middleware/authMiddleware';
 import organizationRoutes from './routes/organization/index';
 import customerRoutes from './routes/customer/index';
 import sowRoutes from './routes/sow';
@@ -23,17 +23,17 @@ app.get('/', (req, res) => {
   res.send('Invoice Management System API');
 });
 
-app.use('/auth', authRoutes);
+// app.use('/auth', authRoutes);
 
-// Protect the following routes
-app.use('/organizations', authenticate, authorize(['admin', 'user']), organizationRoutes);
-app.use('/customers', authenticate, authorize(['admin', 'user']), customerRoutes);
-app.use('/sows', authenticate, authorize(['admin', 'user']), sowRoutes);
-app.use('/sowPaymentPlans', authenticate, authorize(['admin', 'user']), sowPaymentPlanRoutes);
-app.use('/sowPaymentPlanLineItems', authenticate, authorize(['admin', 'user']), sowPaymentPlanLineItemRoutes);
-app.use('/invoices', authenticate, authorize(['admin', 'user']), invoiceRoutes);
-app.use('/invoiceLineItems', authenticate, authorize(['admin', 'user']), invoiceLineItemRoutes);
-app.use('/payments', authenticate, authorize(['admin', 'user']), paymentRoutes);
+
+app.use('/organizations', organizationRoutes);
+app.use('/customers', customerRoutes);
+app.use('/sows', sowRoutes);
+app.use('/sowPaymentPlans', sowPaymentPlanRoutes);
+app.use('/sowPaymentPlanLineItems', sowPaymentPlanLineItemRoutes);
+app.use('/invoices', invoiceRoutes);
+app.use('/invoiceLineItems', invoiceLineItemRoutes);
+app.use('/payments', paymentRoutes);
 
 db.sequelize.sync().then(() => {
   app.listen(PORT, () => {

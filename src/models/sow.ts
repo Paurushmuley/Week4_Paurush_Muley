@@ -1,47 +1,50 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import sequelize from '../config/database';
 
+interface ValidityPeriod {
+  validFrom: Date;
+  validUpto: Date;
+}
+
 interface SOWAttributes {
-  id: number;
-  invoiceEmailAddresses: string;
-  customerId: number;
+  id: string;
+  invoiceEmailAddresses: string[];
+  customerId: string;  // Changed to string if it should not be a UUID
   customerPONumber: string;
   title: string;
   customerSONumber: string;
-  validityPeriod: string;
+  validityPeriod: ValidityPeriod;
   totalValue: number;
   currency: string;
-  isApproved: boolean;
 }
 
 interface SOWCreationAttributes extends Optional<SOWAttributes, 'id'> {}
 
 class SOW extends Model<SOWAttributes, SOWCreationAttributes> implements SOWAttributes {
-  public id!: number;
-  public invoiceEmailAddresses!: string;
-  public customerId!: number;
+  public id!: string;
+  public invoiceEmailAddresses!: string[];
+  public customerId!: string;
   public customerPONumber!: string;
   public title!: string;
   public customerSONumber!: string;
-  public validityPeriod!: string;
+  public validityPeriod!: ValidityPeriod;
   public totalValue!: number;
   public currency!: string;
-  public isApproved!: boolean;
 }
 
 SOW.init(
   {
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     invoiceEmailAddresses: {
-      type: DataTypes.STRING,
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
     customerId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
     },
     customerPONumber: {
@@ -57,7 +60,7 @@ SOW.init(
       allowNull: false,
     },
     validityPeriod: {
-      type: DataTypes.STRING,
+      type: DataTypes.JSONB,
       allowNull: false,
     },
     totalValue: {
@@ -67,10 +70,6 @@ SOW.init(
     currency: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    isApproved: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
     },
   },
   {

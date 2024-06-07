@@ -1,47 +1,48 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import sequelize from '../config/database';
+import { v4 as uuidv4 } from 'uuid';
 
 interface SOWPaymentPlanLineItemAttributes {
-  id: number;
-  sowPaymentPlanId: number;
-  sowId: number;
-  orderId: number;
+  id?: string;
+  sowPaymentPlanId: string;
+  sowId: string;
+  orderId: string;
   particular: string;
   rate: number;
-  unit: string;
+  unit: number;
   total: number;
 }
 
 interface SOWPaymentPlanLineItemCreationAttributes extends Optional<SOWPaymentPlanLineItemAttributes, 'id'> {}
 
 class SOWPaymentPlanLineItem extends Model<SOWPaymentPlanLineItemAttributes, SOWPaymentPlanLineItemCreationAttributes> implements SOWPaymentPlanLineItemAttributes {
-  public id!: number;
-  public sowPaymentPlanId!: number;
-  public sowId!: number;
-  public orderId!: number;
+  public id!: string;
+  public sowPaymentPlanId!: string;
+  public sowId!: string;
+  public orderId!: string;
   public particular!: string;
   public rate!: number;
-  public unit!: string;
+  public unit!: number;
   public total!: number;
 }
 
 SOWPaymentPlanLineItem.init(
   {
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     sowPaymentPlanId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
     },
     sowId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
     },
     orderId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     particular: {

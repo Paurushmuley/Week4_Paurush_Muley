@@ -9,16 +9,16 @@ class Invoice extends sequelize_1.Model {
 }
 Invoice.init({
     id: {
-        type: sequelize_1.DataTypes.INTEGER,
-        autoIncrement: true,
+        type: sequelize_1.DataTypes.UUID,
+        defaultValue: sequelize_1.DataTypes.UUIDV4,
         primaryKey: true,
     },
     totalInvoiceValue: {
-        type: sequelize_1.DataTypes.FLOAT,
+        type: sequelize_1.DataTypes.INTEGER,
         allowNull: false,
     },
     sowId: {
-        type: sequelize_1.DataTypes.INTEGER,
+        type: sequelize_1.DataTypes.UUID,
         allowNull: false,
     },
     status: {
@@ -26,7 +26,7 @@ Invoice.init({
         allowNull: false,
     },
     sowPaymentPlanId: {
-        type: sequelize_1.DataTypes.INTEGER,
+        type: sequelize_1.DataTypes.UUID,
         allowNull: false,
     },
     invoiceSentOn: {
@@ -34,7 +34,7 @@ Invoice.init({
         allowNull: true,
     },
     customerId: {
-        type: sequelize_1.DataTypes.INTEGER,
+        type: sequelize_1.DataTypes.UUID,
         allowNull: false,
     },
     paymentReceivedOn: {
@@ -46,11 +46,11 @@ Invoice.init({
         allowNull: false,
     },
     invoiceAmount: {
-        type: sequelize_1.DataTypes.FLOAT,
+        type: sequelize_1.DataTypes.INTEGER,
         allowNull: false,
     },
     invoiceTaxAmount: {
-        type: sequelize_1.DataTypes.FLOAT,
+        type: sequelize_1.DataTypes.INTEGER,
         allowNull: false,
     },
 }, {
